@@ -1937,18 +1937,28 @@ Transfusion Reaction</strong><br>
                 નીચે ની તમામ માહિતી અમારા ડૉક્ટર એ અમને સમજણ પડે એ ભાષા માં સમજાવેલ છે. અને અમે સારવાર ની મંજૂરી આપીએ છીએ
             </div>
 
-            <!-- NEW INDICATION FREE TEXT BOX -->
+            <!-- Gynecology Surgical Consent indication selector + editable manual fields -->
             <div class="procedure-indication-block" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px;">
+                <div class="no-print-dropdown" style="text-align: left; margin-bottom: 0; margin-top: 10px;">
+                    <label style="font-weight: 700; color: #495057; font-size: 13px; text-transform: uppercase; margin-bottom: 5px; display: inline-block;">Indication Selector:</label>
+                    <div class="autocomplete-wrapper" style="width: 100%; max-width: 600px; margin: 0 0 10px 0;">
+                        <div class="search-input-container">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="search-input-indication-3" class="autocomplete-input" placeholder="Search indication (English / Gujarati)...">
+                        </div>
+                        <ul id="autocomplete-list-indication-3" class="autocomplete-list"></ul>
+                    </div>
+                </div>
                 <div class="input-group" style="width: 100%; align-items: flex-end;">
                     <label style="min-width: 100px;">Indication:</label>
-                    <input type="text" class="inline-input" style="width: 100%;" placeholder="Enter indication here...">
+                    <input type="text" id="form3-indication-manual" class="inline-input" style="width: 100%;" placeholder="Select an indication above or enter manually...">
                 </div>
                 <div class="input-group" style="width: 100%; align-items: flex-end;">
                     <label style="min-width: 100px;">કારણ:</label>
-                    <input type="text" class="inline-input" style="width: 100%;" placeholder="Enter કારણ here...">
+                    <input type="text" id="form3-karan-manual" class="inline-input" style="width: 100%;" placeholder="Select an indication above or enter કારણ manually...">
                 </div>
             </div>
-            <!-- END NEW BLOCK -->
+            <!-- END GYNECOLOGY INDICATION SELECTOR -->
 
             <!-- Custom Autocomplete for Form 3 -->
             <div class="no-print-dropdown">
@@ -3039,6 +3049,133 @@ Transfusion Reaction</strong><br>
                     karanDisplay2.value = selectedIndications2.map(i => i.guj).join(' ');
                 },
                 () => selectedIndications2.map(i => i.id)
+            );
+
+            // --- Form 3 (Gynecology Surgical Consent) Indication Selector ---
+            // Dedicated gynecology list supplied by the user. Gujarati field remains
+            // manually editable because this list was provided in English only.
+            const f3IndicationsData = [
+                {id: "gyn-indication-1", eng: "Abnormal Pap Smear (ASCUS)", guj: ""},
+                {id: "gyn-indication-2", eng: "Abnormal Pap Smear (LSIL)", guj: ""},
+                {id: "gyn-indication-3", eng: "Abnormal Pap Smear (HSIL)", guj: ""},
+                {id: "gyn-indication-4", eng: "Abnormal Pap Smear (AGC)", guj: ""},
+                {id: "gyn-indication-5", eng: "Abnormal Uterine Bleeding", guj: ""},
+                {id: "gyn-indication-6", eng: "Abnormal Uterine Bleeding- Polyp", guj: ""},
+                {id: "gyn-indication-7", eng: "Abnormal Uterine Bleeding- Adenomyosis", guj: ""},
+                {id: "gyn-indication-8", eng: "Abnormal Uterine Bleeding- Leiomyoma Uteri", guj: ""},
+                {id: "gyn-indication-9", eng: "Abnormal Uterine Bleeding- Malignancy and Hyperplasia", guj: ""},
+                {id: "gyn-indication-10", eng: "Abnormal Uterine Bleeding- Coagulopathy", guj: ""},
+                {id: "gyn-indication-11", eng: "Abnormal Uterine Bleeding- Ovulatory Dysfunction", guj: ""},
+                {id: "gyn-indication-12", eng: "Abnormal Uterine Bleeding- Endometrial", guj: ""},
+                {id: "gyn-indication-13", eng: "Abnormal Uterine Bleeding- Iatrogenic", guj: ""},
+                {id: "gyn-indication-14", eng: "Abnormal Uterine Bleeding- Not Otherwise Specified", guj: ""},
+                {id: "gyn-indication-15", eng: "Acute Abdomen", guj: ""},
+                {id: "gyn-indication-16", eng: "Acute Pelvic Pain", guj: ""},
+                {id: "gyn-indication-17", eng: "Adenomyosis", guj: ""},
+                {id: "gyn-indication-18", eng: "Adnexal Torsion", guj: ""},
+                {id: "gyn-indication-19", eng: "Asherman Syndrome", guj: ""},
+                {id: "gyn-indication-20", eng: "Bartholin Gland Cyst", guj: ""},
+                {id: "gyn-indication-21", eng: "Bilateral Tubal Block", guj: ""},
+                {id: "gyn-indication-22", eng: "Bladder Injury", guj: ""},
+                {id: "gyn-indication-23", eng: "Cervical Stenosis", guj: ""},
+                {id: "gyn-indication-24", eng: "Cervicitis", guj: ""},
+                {id: "gyn-indication-25", eng: "Chocolate Cyst (Unilateral)", guj: ""},
+                {id: "gyn-indication-26", eng: "Chocolate Cyst (Bilateral)", guj: ""},
+                {id: "gyn-indication-27", eng: "Chronic Pelvic Pain", guj: ""},
+                {id: "gyn-indication-28", eng: "Complete Perineal Tear (Old)", guj: ""},
+                {id: "gyn-indication-29", eng: "Complex Ovarian Cyst", guj: ""},
+                {id: "gyn-indication-30", eng: "Cystocele", guj: ""},
+                {id: "gyn-indication-31", eng: "Sexual Dysfunction due to Developmental Defect", guj: ""},
+                {id: "gyn-indication-32", eng: "Dysmenorrhea", guj: ""},
+                {id: "gyn-indication-33", eng: "Endocervical Polyp", guj: ""},
+                {id: "gyn-indication-34", eng: "Endometrial Hyperplasia", guj: ""},
+                {id: "gyn-indication-35", eng: "Endometrial Hyperplasia (Without Atypia)", guj: ""},
+                {id: "gyn-indication-36", eng: "Endometrial Hyperplasia (With Atypia)", guj: ""},
+                {id: "gyn-indication-37", eng: "Endometrial Polyp", guj: ""},
+                {id: "gyn-indication-38", eng: "Endometriosis", guj: ""},
+                {id: "gyn-indication-39", eng: "Endometritis", guj: ""},
+                {id: "gyn-indication-40", eng: "Enterocele", guj: ""},
+                {id: "gyn-indication-41", eng: "Examination Under Anesthesia (unmarried)", guj: ""},
+                {id: "gyn-indication-42", eng: "Family Planning", guj: ""},
+                {id: "gyn-indication-43", eng: "Failure of Medical Management", guj: ""},
+                {id: "gyn-indication-44", eng: "Fibroid", guj: ""},
+                {id: "gyn-indication-45", eng: "Fibroid (Multiple)", guj: ""},
+                {id: "gyn-indication-46", eng: "Fibroid (Submucosal)", guj: ""},
+                {id: "gyn-indication-47", eng: "Fibroid (Intramural- Single)", guj: ""},
+                {id: "gyn-indication-48", eng: "Fibroid (Intramural- Multiple)", guj: ""},
+                {id: "gyn-indication-49", eng: "Functional Ovarian Cyst", guj: ""},
+                {id: "gyn-indication-50", eng: "Heavy Menstrual Bleeding", guj: ""},
+                {id: "gyn-indication-51", eng: "Hydrosalpinx (Bilateral)", guj: ""},
+                {id: "gyn-indication-52", eng: "Hydrosalpinx (Unilateral)", guj: ""},
+                {id: "gyn-indication-53", eng: "Infertility (Primary)", guj: ""},
+                {id: "gyn-indication-54", eng: "Infertility (Secondary)", guj: ""},
+                {id: "gyn-indication-55", eng: "Intermenstrual Bleeding", guj: ""},
+                {id: "gyn-indication-56", eng: "Leiomyoma", guj: ""},
+                {id: "gyn-indication-57", eng: "Menstrual Hygiene", guj: ""},
+                {id: "gyn-indication-58", eng: "Mirena Insertion", guj: ""},
+                {id: "gyn-indication-59", eng: "Ovarian Mass", guj: ""},
+                {id: "gyn-indication-60", eng: "Ovarian Teratoma", guj: ""},
+                {id: "gyn-indication-61", eng: "Ovarian Torsion", guj: ""},
+                {id: "gyn-indication-62", eng: "Pelvic Inflammatory Disease", guj: ""},
+                {id: "gyn-indication-63", eng: "Peritonitis", guj: ""},
+                {id: "gyn-indication-64", eng: "Periovarian Cyst", guj: ""},
+                {id: "gyn-indication-65", eng: "PCOS (Polycystic Ovary Syndrome)", guj: ""},
+                {id: "gyn-indication-66", eng: "Postmenopausal Bleeding", guj: ""},
+                {id: "gyn-indication-67", eng: "Rectocele", guj: ""},
+                {id: "gyn-indication-68", eng: "Rectovaginal Fistula", guj: ""},
+                {id: "gyn-indication-69", eng: "Recurrent Pregnancy Loss", guj: ""},
+                {id: "gyn-indication-70", eng: "Refractory to Medical Management", guj: ""},
+                {id: "gyn-indication-71", eng: "Ruptured Ectopic Pregnancy", guj: ""},
+                {id: "gyn-indication-72", eng: "Scar Endometriosis", guj: ""},
+                {id: "gyn-indication-73", eng: "Septate Uterus", guj: ""},
+                {id: "gyn-indication-74", eng: "Stress Urinary Incontinence", guj: ""},
+                {id: "gyn-indication-75", eng: "Tubo-ovarian Mass (Bilateral)", guj: ""},
+                {id: "gyn-indication-76", eng: "Tubo-ovarian Mass (Unilateral)", guj: ""},
+                {id: "gyn-indication-77", eng: "Unruptured Ectopic Pregnancy", guj: ""},
+                {id: "gyn-indication-78", eng: "Unilateral Tubal Block", guj: ""},
+                {id: "gyn-indication-79", eng: "Urethral Diverticulum", guj: ""},
+                {id: "gyn-indication-80", eng: "Uterine Arteriovenous Malformation", guj: ""},
+                {id: "gyn-indication-81", eng: "Uterocervical Prolapse", guj: ""},
+                {id: "gyn-indication-82", eng: "Uterocervical Prolapse (Grade: I)", guj: ""},
+                {id: "gyn-indication-83", eng: "Uterocervical Prolapse (Grade: II)", guj: ""},
+                {id: "gyn-indication-84", eng: "Uterocervical Prolapse (Grade: III)", guj: ""},
+                {id: "gyn-indication-85", eng: "Uterocervical Prolapse (Grade: IV)", guj: ""},
+                {id: "gyn-indication-86", eng: "Vulvar Abscess", guj: ""},
+                {id: "gyn-indication-87", eng: "Vulvar Carcinoma", guj: ""},
+                {id: "gyn-indication-88", eng: "Vulvar Dermatitis", guj: ""},
+                {id: "gyn-indication-89", eng: "Vulvar Hematoma", guj: ""},
+                {id: "gyn-indication-90", eng: "Vulvar Laceration", guj: ""},
+                {id: "gyn-indication-91", eng: "Vulvar Lesion", guj: ""},
+                {id: "gyn-indication-92", eng: "Vaginal Vault Prolapse", guj: ""},
+                {id: "gyn-indication-93", eng: "Vesicovaginal Fistula", guj: ""},
+                {id: "gyn-indication-94", eng: "Vulvovaginal Fistula", guj: ""}
+            ];
+            let selectedIndications3 = [];
+            const indicationDisplay3 = document.getElementById('form3-indication-manual');
+            const karanDisplay3 = document.getElementById('form3-karan-manual');
+
+            createAutocomplete(
+                'search-input-indication-3',
+                'autocomplete-list-indication-3',
+                f3IndicationsData.map(d => ({
+                    id: d.id,
+                    text: d.eng,
+                    guj: d.guj,
+                    searchable: d.eng
+                })),
+                (selectedItem) => {
+                    const existingIndex = selectedIndications3.findIndex(i => i.id === selectedItem.id);
+                    if (existingIndex > -1) {
+                        selectedIndications3.splice(existingIndex, 1);
+                    } else {
+                        selectedIndications3.push(selectedItem);
+                    }
+
+                    indicationDisplay3.value = selectedIndications3.map(i => i.text).join(' + ');
+                    const translatedSelections = selectedIndications3.map(i => i.guj).filter(Boolean);
+                    if (translatedSelections.length) karanDisplay3.value = translatedSelections.join(' ');
+                },
+                () => selectedIndications3.map(i => i.id)
             );
         });
 
